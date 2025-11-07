@@ -87,17 +87,6 @@ const PokemonInfos = () => {
     );
 };
 
-const Section = styled.section`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background-color: ${({ theme }) => theme.layout.backgroundColor};
-  color: ${({ theme }) => theme.layout.textColor};
-`;
-
 const P = styled.p`
   color: black;
 `
@@ -116,6 +105,25 @@ const Type = styled.p`
   border-top: 0.5px solid ${({ theme }) => theme.layout.textColor};
 `;
 
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: ${({ theme }) => theme.card.textColor};
+`;
+const Section = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: ${({ theme }) => theme.layout.backgroundColor};
+  color: ${({ theme }) => theme.layout.textColor};
+  padding: 40px 20px;
+  min-height: 100vh;
+  width: 100%;
+`;
+
+
 const PokemonDetails = styled.div`
   border-radius: 10px;
   background-color: ${({ theme }) => theme.card.backgroundColor};
@@ -123,13 +131,18 @@ const PokemonDetails = styled.div`
   color: ${({ theme }) => theme.card.textColor};
   padding: 10px;
   width: 15%;
+
+  @media (max-width: 1024px) {
+    width: 40%;
+  }
+
+  @media (max-width: 768px) {
+    width: 80%;
+  }
+
+  @media (max-width: 480px) {
+    width: 90%;
+  }
 `;
-
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: ${({ theme }) => theme.card.textColor};
-`;
-
 
 export default PokemonInfos;

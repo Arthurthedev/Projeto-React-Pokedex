@@ -17,7 +17,12 @@ function App() {
 }
 
 const GlobalStyle = createGlobalStyle`
-  
+  body {
+  background-color: ${({ theme }) => theme.layout.backgroundColor};
+  margin: 0;
+  padding: 0;
+}
+
 *{
       font-family: Poppins, sans-serif;
       margin:0;

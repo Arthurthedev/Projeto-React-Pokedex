@@ -1,5 +1,6 @@
 
-<img src="##" alt="exemplo site pokedex">
+# Pokedéx via pokeAPI
+<img src="./public/Demonstracao.gif" alt="exemplo site pokedex">
 
 # 📘 Propósito da aplicação 
 - Esta aplicação é uma Pokédex interativa, desenvolvida em React, que consome a PokéAPI para exibir informações sobre diferentes Pokémon. O objetivo principal é demonstrar habilidades com React moderno, consumo de APIs REST, gerenciamento de estado e organização modular de código utilizando boas práticas.
@@ -9,6 +10,8 @@
 - Exibição de uma lista de Pokémon com nome e imagem.
 
 - Botão “Carregar mais” que adiciona novos Pokémon sem recarregar a página.
+
+- Campo de busca que permite pesquisar qualquer Pokémon pelo nome, inclusive aqueles que ainda não estão listados na tela, realizando uma nova requisição direta à PokéAPI.
 
 - Página individual de cada Pokémon com:
 
@@ -36,7 +39,7 @@
 
 Separação por responsabilidades:
 
-- Lógica de API foi isolada em /src/api, enquanto o consumo e estado estão em hooks personalizados (/src/hooks), e a renderização nas páginas (/src/pages).
+- Possui organização modular, com o código dividido entre /api (requisições), /hooks (lógica de estado e dados), /components (partes reutilizáveis) e /pages (estrutura visual).
 
 - Theme Context implementado para permitir mudança de tema globalmente com facilidade, evitando prop drilling.
 

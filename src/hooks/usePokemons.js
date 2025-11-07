@@ -22,6 +22,7 @@ export function usePokemons() {
         fetchPokemons(10, 0);
     }, []);
 
-    return{pokemonData, loading, fetchPokemons, offset, setOffset}
+   return { pokemonData, setPokemonData, loading, fetchPokemons, offset, setOffset };
+
 }
 
