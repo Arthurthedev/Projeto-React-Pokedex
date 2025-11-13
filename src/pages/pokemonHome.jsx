@@ -4,12 +4,11 @@ import { useState } from "react";
 import { usePokemons } from "../hooks/UsePokemons";
 import { searchPokemonByName } from "../api/searchPokemon";
 import SearchBar from "../components/SearchBar";
-
+import { ToggleThemeButton } from "../components/ToggleThemeButton";
 
 function PokemonHome() {
   const { pokemonData, loading, fetchPokemons, offset, setOffset, setPokemonData } = usePokemons();
   const [searchTerm, setSearchTerm] = useState("");
-  const [isSearching, setIsSearching] = useState(false);
 
   async function handleSearchPokemon() {
     if (searchTerm.trim() === "") {
@@ -22,59 +21,56 @@ function PokemonHome() {
   }
 
   return (
-    <Main>
-      <h1>Bem-vindo à Pokédex!</h1>
+    <>
+      <ToggleThemeButton />
 
-      <SearchBar
-        value={searchTerm}
-        onChange={setSearchTerm}
-        onSearch={handleSearchPokemon}
-        isSearching={isSearching}
-      />
+      <Main>
+        <h1>Bem-vindo à Pokédex!</h1>
 
-      <Div>
-        {pokemonData.map((pokemon) => (
-          <StyledLink to={`/pokemon/${pokemon.nome}`} key={pokemon.id}>
-            <PokeInfo>
-              <p>{pokemon.nome}</p>
-              <img
-                src={pokemon.imagem}
-                alt={`Imagem do Pokémon ${pokemon.nome}`}
-              />
-            </PokeInfo>
-          </StyledLink>
-        ))}
-      </Div>
+        <SearchBar
+          value={searchTerm}
+          onChange={setSearchTerm}
+          onSearch={handleSearchPokemon}
+        />
 
-      <LoadButton
-        onClick={() => {
-          const newOffset = offset + 10;
-          setOffset(newOffset);
-          fetchPokemons(10, newOffset);
-        }}
-        disabled={loading || isSearching}
-      >
-        {loading ? "Carregando..." : "Carregar mais"}
-      </LoadButton>
-    </Main>
+        <Div>
+          {pokemonData.map((pokemon) => (
+            <StyledLink to={`/pokemon/${pokemon.nome}`} key={pokemon.id}>
+              <PokeInfo>
+                <p>{pokemon.nome}</p>
+                <img
+                  src={pokemon.imagem}
+                  alt={`Imagem do Pokémon ${pokemon.nome}`}
+                />
+              </PokeInfo>
+            </StyledLink>
+          ))}
+        </Div>
+
+        <LoadButton
+          onClick={() => {
+            const newOffset = offset + 10;
+            setOffset(newOffset);
+            fetchPokemons(10, newOffset);
+          }}
+          disabled={loading}
+        >
+          {loading ? "Carregando..." : "Carregar mais"}
+        </LoadButton>
+      </Main>
+    </>
   );
 }
 
 const Main = styled.main`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-color: #dadfe8;
-`;
-
-const SearchContainer = styled.div`
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  margin-bottom: 15px;
+  background-color: ${({ theme }) => theme.layout.backgroundColor};
+  color: ${({ theme }) => theme.layout.textColor};
 `;
 
 const Div = styled.div`
@@ -85,74 +81,37 @@ const Div = styled.div`
 `;
 
 const PokeInfo = styled.div`
-  background-color: white;
+  background-color: ${({ theme }) => theme.card.backgroundColor};
   border-radius: 10px;
-  border: 1px solid orange;
+  border: 1px solid ${({ theme }) => theme.card.borderColor};
   padding: 10px;
   text-align: center;
   width: 120px;
+  color: ${({ theme }) => theme.card.textColor};
 `;
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  color: black;
+  color: ${({ theme }) => theme.card.textColor};
 `;
 
 const LoadButton = styled.button`
   margin-top: 20px;
   padding: 10px 20px;
-  background-color: orange;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #ffb347;
-  }
-
-  &:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-`;
-
-const SearchButton = styled.button`
-  background-color: orange;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.2s;
-
-  &:hover {
-    background-color: #ffb347;
-  }
-
-  &:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-`;
-
-const SearchInput = styled.input`
-  background-color: ${({ theme }) => theme.card.backgroundColor};
+  background-color: ${({ theme }) => theme.card.borderColor};
   color: ${({ theme }) => theme.card.textColor};
-  border: 1px solid ${({ theme }) => theme.card.borderColor};
+  border: none;
   border-radius: 8px;
-  padding: 8px 12px;
-  font-size: 16px;
-  outline: none;
+  cursor: pointer;
   transition: 0.2s;
-  width: 250px;
 
-  &::placeholder {
-    color: ${({ theme }) => theme.card.textColor}99;
+  &:hover {
+    filter: brightness(1.2);
   }
 
-  &:focus {
-    filter: brightness(1.1);
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
   }
 `;
 
